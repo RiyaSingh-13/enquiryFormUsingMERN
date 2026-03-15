@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Checkbox, Button, Label, TextInput, Textarea } from "flowbite-react";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 import EnquiryList from "./enq/enquiryList";
 
@@ -16,65 +15,65 @@ export default function Enquiry() {
     email: "",
     phone: "",
     message: "",
-    id:""
+    id: "",
   });
 
   const saveEnquiry = (e) => {
     e.preventDefault();
-    if(formData._id){
-  //  
-   axios.put(`http://localhost:8020/api/website/enquiry/update/${formData._id}`,formData)
-   .then((res)=>{
-    console.log(res.data)
-    toast.success("enquiry updated successfully", 
-      {
-        autoClose:5000
-      }
-    )
-    setFormData({
-      name:"",
-      email:"",
-      phone:"",
-      message:"",
-      _id:""
-    })
-    getAllEnquiry()
-   })
-  }
-    else{
-    axios
-      .post("http://localhost:8020/api/website/enquiry/insert", formData)
-      .then((res) => {
-        console.log(res.data);
-        toast.success("Data saved successfully",{
-          autoClose:3000
+    if (formData._id) {
+      //
+      axios
+        .put(
+          `http://localhost:3000/api/website/enquiry/update/${formData._id}`,
+          formData,
+        )
+        .then((res) => {
+          console.log(res.data);
+          toast.success("enquiry updated successfully", {
+            autoClose: 5000,
+          });
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+            _id: "",
+          });
+          getAllEnquiry();
         });
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
+    } else {
+      axios
+        .post("http://localhost:3000/api/website/enquiry/insert", formData)
+        .then((res) => {
+          console.log(res.data);
+          toast.success("Data saved successfully", {
+            autoClose: 3000,
+          });
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+
+          getAllEnquiry(); // Refresh the list after saving
         });
-        
-        getAllEnquiry(); // Refresh the list after saving
-      });
     }
-    
   };
 
   const getAllEnquiry = () => {
-    axios.get('http://localhost:8020/api/website/enquiry/enquiryList')
+    axios
+      .get("http://localhost:3000/api/website/enquiry/enquiryList")
       .then((res) => {
-        return res.data
-  })
-  .then((finalData)=>{
-    if(finalData.status){
-      setEnquiryList(finalData.enquiryList)
-
-    }
-  })
+        return res.data;
+      })
+      .then((finalData) => {
+        if (finalData.status) {
+          setEnquiryList(finalData.enquiryList);
+        }
+      });
     // axios
-    //   .get("http://localhost:8020/api/website/enquiry/enquiryList")
+    //   .get("http://localhost:3000/api/website/enquiry/enquiryList")
     //   .then((res) => res.data)
     //   .then((finalData) => {
     //     if (finalData.status && Array.isArray(finalData.enquiryList)) {
@@ -96,7 +95,7 @@ export default function Enquiry() {
 
   useEffect(() => {
     getAllEnquiry();
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -118,7 +117,7 @@ export default function Enquiry() {
                 onChange={getValue}
                 placeholder="Enter your Name"
                 required
-                  autoComplete="name"
+                autoComplete="name"
               />
             </div>
             <div className="py-3">
@@ -144,7 +143,7 @@ export default function Enquiry() {
                 name="phone"
                 placeholder="Enter your phone"
                 required
-               autoComplete="tel" // Add this line
+                autoComplete="tel" // Add this line
               />
             </div>
             <div className="py-3">
@@ -166,7 +165,11 @@ export default function Enquiry() {
             </div>
           </form>
         </div>
-        <EnquiryList data={enquiryList}  getAllEnquiry={getAllEnquiry}  setFormData={setFormData} />
+        <EnquiryList
+          data={enquiryList}
+          getAllEnquiry={getAllEnquiry}
+          setFormData={setFormData}
+        />
       </div>
     </div>
   );
