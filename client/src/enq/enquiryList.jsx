@@ -15,7 +15,9 @@ import { toast, ToastContainer } from "react-toastify";
 export default function EnquiryList({ data = [], getAllEnquiry, setFormData }) {
   let deleteRow = (id) => {
     axios
-      .delete(`http://localhost:3000/api/website/enquiry/delete/${id} `)
+      .delete(
+        `https://enquiryformusingmern-5.onrender.com/api/website/enquiry/delete/${id} `,
+      )
       .then((res) => {
         toast.success("deleted successfully");
         getAllEnquiry();
@@ -28,7 +30,9 @@ export default function EnquiryList({ data = [], getAllEnquiry, setFormData }) {
     alert("editing a row with id " + id);
 
     axios
-      .get(`http://localhost:3000/api/website/enquiry/single/${id}`)
+      .get(
+        `https://enquiryformusingmern-5.onrender.com/api/website/enquiry/single/${id}`,
+      )
       .then((res) => {
         let data = res.data;
         setFormData(data.enquiry);

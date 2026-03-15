@@ -24,7 +24,7 @@ export default function Enquiry() {
       //
       axios
         .put(
-          `http://localhost:3000/api/website/enquiry/update/${formData._id}`,
+          `https://enquiryformusingmern-5.onrender.com/api/website/enquiry/update/${formData._id}`,
           formData,
         )
         .then((res) => {
@@ -43,7 +43,10 @@ export default function Enquiry() {
         });
     } else {
       axios
-        .post("http://localhost:3000/api/website/enquiry/insert", formData)
+        .post(
+          "https://enquiryformusingmern-5.onrender.com/api/website/enquiry/insert",
+          formData,
+        )
         .then((res) => {
           console.log(res.data);
           toast.success("Data saved successfully", {
@@ -63,7 +66,9 @@ export default function Enquiry() {
 
   const getAllEnquiry = () => {
     axios
-      .get("http://localhost:3000/api/website/enquiry/enquiryList")
+      .get(
+        "https://enquiryformusingmern-5.onrender.com/api/website/enquiry/enquiryList",
+      )
       .then((res) => {
         return res.data;
       })
@@ -73,7 +78,7 @@ export default function Enquiry() {
         }
       });
     // axios
-    //   .get("http://localhost:3000/api/website/enquiry/enquiryList")
+    //   .get("https://enquiryformusingmern-5.onrender.com/api/website/enquiry/enquiryList")
     //   .then((res) => res.data)
     //   .then((finalData) => {
     //     if (finalData.status && Array.isArray(finalData.enquiryList)) {
