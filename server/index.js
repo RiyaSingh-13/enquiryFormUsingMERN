@@ -8,7 +8,14 @@ require("dotenv").config();
 
 let cors = require("cors");
 
-app.use(cors());
+// Allow only the deployed frontend domain
+app.use(
+  cors({
+    origin: ["https://enquiryformusingmern-6-frontend-2.onrender.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 app.use("/api/website/enquiry", EnquiryRouter);
